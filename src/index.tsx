@@ -7,6 +7,7 @@ import 'custom.scss';
 import App from 'App';
 import { AuthProvider } from 'contexts/auth';
 import CreateAccountPage from 'pages/CreateAccountPage';
+import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import reportWebVitals from 'reportWebVitals';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
@@ -23,6 +24,7 @@ ReactDOM.render(
             </AuthProvider>
           }
         >
+          <Route index element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="create-account" element={<CreateAccountPage />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
