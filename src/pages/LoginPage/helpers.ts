@@ -13,14 +13,7 @@ export async function handleSignIn(
   dispatch({ type: 'login_start' });
 
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-    dispatch({ payload: userCredential.user, type: 'login_success' });
-
+    await signInWithEmailAndPassword(auth, email, password);
     onSuccess();
   } catch (error: unknown) {
     setError('Invalid email or password. Please try again.');

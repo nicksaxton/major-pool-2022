@@ -7,6 +7,7 @@ import 'custom.scss';
 import App from 'App';
 import { AuthProvider } from 'contexts/auth';
 import CreateAccountPage from 'pages/CreateAccountPage';
+import CreateEntryPage from 'pages/CreateEntryPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import reportWebVitals from 'reportWebVitals';
@@ -30,6 +31,7 @@ ReactDOM.render(
           <Route path="login" element={<LoginPage />} />
           <Route path="create-account" element={<CreateAccountPage />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="create-entry" element={<CreateEntryPage />} />
           <Route path="2021" element={<PreviousResultsPage />}>
             <Route index element={<div>Overall</div>} />
             <Route

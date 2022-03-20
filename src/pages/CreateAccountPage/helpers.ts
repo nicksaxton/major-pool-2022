@@ -18,8 +18,6 @@ export async function handleCreateAccount(
       values.password
     );
 
-    dispatch({ payload: userCredential.user, type: 'login_success' });
-
     await setDoc(doc(db, 'users', userCredential.user.uid), {
       admin: false,
       firstName: values.firstName,
