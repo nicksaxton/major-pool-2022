@@ -1,0 +1,79 @@
+.AvailableGolfers {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-left: 0;
+  border-right: 0;
+  max-height: 250px;
+  overflow: auto;
+}
+
+.Golfer {
+  &:first-child {
+    border-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.GolferPhoto {
+  border-radius: 9999px;
+  height: 48px;
+  margin-right: 20px;
+  width: 48px;
+}
+
+.GolfersContainer {
+  max-height: 400px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.TournamentPicks {
+  border-radius: 10px;
+  height: 100%;
+  padding: 25px;
+
+  .TournamentLogo {
+    height: 128px;
+    width: 128px;
+  }
+
+  .TournamentLogoWrapper {
+    align-items: center;
+    background-color: white;
+    border-radius: 9999px;
+    display: flex;
+    height: 150px;
+    justify-content: center;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 15px;
+    width: 150px;
+  }
+
+  &.Masters {
+    background-color: #f0fdf4;
+  }
+
+  &.OpenChampionship {
+    background-color: #fffbeb;
+
+    .TournamentLogo {
+      height: 75px;
+    }
+  }
+
+  &.PGA {
+    background-color: #eff6ff;
+  }
+
+  &.USOpen {
+    background-color: #fef2f2;
+
+    .TournamentLogo {
+      height: 150px;
+      width: 150px;
+    }
+  }
+}

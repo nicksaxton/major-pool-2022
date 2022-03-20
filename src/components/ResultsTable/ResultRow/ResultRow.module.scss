@@ -1,0 +1,27 @@
+.ResultRow {
+  cursor: pointer;
+
+  & + tr {
+    display: none;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+
+    & + tr {
+      background-color: rgba(0, 0, 0, 0.075);
+    }
+  }
+
+  &.Expanded {
+    border: none;
+
+    & > td {
+      border: none;
+    }
+
+    & + tr {
+      display: table-row;
+    }
+  }
+}
