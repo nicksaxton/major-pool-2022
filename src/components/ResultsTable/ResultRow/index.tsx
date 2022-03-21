@@ -1,22 +1,19 @@
 import * as React from 'react';
 
-import { Golfer, GolferScore, Result } from 'types';
+import { Golfer, GolferScore, Result, User } from 'types';
 import classnames from 'utils/classnames';
+import { formatScore } from 'utils/formatScore';
 
 import styles from './ResultRow.module.scss';
-
-function formatScore(score: number): string {
-  return score === 0 ? 'E' : score > 0 ? `+${score}` : `${score}`;
-}
 
 type Props = {
   cutScore: number;
   golfersById: Record<number, Golfer>;
   index: number;
   result: Result;
-  scoreMap: Record<number, GolferScore>;
+  scoresByGolferId: Record<number, GolferScore>;
   tied: boolean;
-  userNamesById: Record<string, string>;
+  usersById: Record<string, User>;
 };
 
 export function ResultRow({
@@ -24,13 +21,13 @@ export function ResultRow({
   golfersById,
   index,
   result,
-  scoreMap,
+  scoresByGolferId,
   tied,
-  userNamesById,
+  usersById,
 }: Props) {
   const [expanded, setExpanded] = React.useState(false);
 
-  const userName = userNamesById[result.userId];
+  const userName = usersById[result.userId].name;
 
   return (
     <React.Fragment key={result.name}>
@@ -49,14 +46,16 @@ export function ResultRow({
       <tr>
         <td colSpan={3}>
           <div className="row p-4">
-            {result.picks.map((pick) => {
-              const golfer = golfersById[pick];
-              const score = scoreMap[pick] as GolferScore | undefined;
+            {result.picks.map((golferId) => {
+              const golfer = golfersById[golferId];
+              const score = scoresByGolferId[golferId] as
+                | GolferScore
+                | undefined;
 
               return (
                 <div
                   className="d-flex align-items-center justify-content-center col-6 col-md-3 mb-2"
-                  key={`${result.userId}_${pick}`}
+                  key={`${result.userId}_${golferId}`}
                 >
                   <img
                     style={{

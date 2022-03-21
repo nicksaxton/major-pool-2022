@@ -19,3 +19,7 @@ export type Result = {
   picks: number[];
   userId: string;
 };
+
+export type User = {
+  name: string;
+};

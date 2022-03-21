@@ -14,6 +14,7 @@ import reportWebVitals from 'reportWebVitals';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import PreviousResultsPage from 'pages/PreviousResultsPage';
 import { ResultsTable } from 'components/ResultsTable';
+import { OverallResultsTable } from 'components/OverallResultsTable';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -33,7 +34,20 @@ ReactDOM.render(
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="create-entry" element={<CreateEntryPage />} />
           <Route path="2021" element={<PreviousResultsPage />}>
-            <Route index element={<div>Overall</div>} />
+            <Route
+              index
+              element={
+                <OverallResultsTable
+                  tournamentUrls={{
+                    masters:
+                      'https://www.golfchannel.com/api/v2/events/19208/leaderboard',
+                    pga: 'https://www.golfchannel.com/api/v2/events/19190/leaderboard',
+                    us: 'https://www.golfchannel.com/api/v2/events/19207/leaderboard',
+                    open: 'https://www.golfchannel.com/api/v2/events/19198/leaderboard',
+                  }}
+                />
+              }
+            />
             <Route
               path="masters"
               element={

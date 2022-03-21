@@ -1,24 +1,12 @@
-import { collection, getDocs } from 'firebase/firestore/lite';
 import * as React from 'react';
 import { useOutletContext } from 'react-router-dom';
+
 import { Golfer, GolferScore } from 'types';
-import { db } from 'utils/firebase';
+import { useEntries } from 'hooks/useEntries';
+import { useScores } from 'hooks/useScores';
+import { useUsers } from 'hooks/useUsers';
+
 import { ResultRow } from './ResultRow';
-
-type Entry = {
-  name: string;
-  userId: string;
-  masters: number[];
-  pga: number[];
-  open: number[];
-  us: number[];
-};
-
-type ScoresResponse = {
-  result: {
-    golfers: GolferScore[];
-  };
-};
 
 type Props = {
   entriesCollection: string;
@@ -31,80 +19,22 @@ export function ResultsTable({
   tournament,
   tournamentScoresUrl,
 }: Props) {
-  const [cutScore, setCutScore] = React.useState(0);
-  const [entriesMap, setEntriesMap] = React.useState<Record<string, Entry>>({});
-  const [loadingData, setLoadingData] = React.useState(true);
-  const [scoresMap, setScoresMap] = React.useState<Record<number, GolferScore>>(
-    {}
-  );
-  const [usersMap, setUsersMap] = React.useState<Record<string, string>>({});
-
   const golfersById: Record<number, Golfer> = useOutletContext();
 
-  React.useEffect(() => {
-    setLoadingData(true);
-
-    Promise.all([
-      getDocs(collection(db, entriesCollection)),
-      getDocs(collection(db, 'users')),
-      fetch(`/cors?url=${tournamentScoresUrl}`),
-    ])
-      .then(([entriesResult, usersResult, scoresResponse]) => {
-        if (!entriesResult.empty) {
-          const entryMap: Record<string, Entry> = {};
-          entriesResult.docs.forEach((doc) => {
-            entryMap[doc.id] = doc.data() as Entry;
-          });
-          setEntriesMap(entryMap);
-        }
-
-        if (!usersResult.empty) {
-          const userNamesById: Record<string, string> = {};
-          usersResult.docs.forEach((doc) => {
-            const data = doc.data() as { firstName: string; lastName: string };
-            userNamesById[doc.id] = `${data.firstName} ${data.lastName}`;
-          });
-          setUsersMap(userNamesById);
-        }
-
-        if (scoresResponse.ok) {
-          scoresResponse
-            .json()
-            .then((data: ScoresResponse) => {
-              const golferMap: Record<number, GolferScore> = {};
-              let currentCutScore: number = 0;
-
-              data.result.golfers.forEach((golfer) => {
-                if (!golfer.status) {
-                  currentCutScore = Number(golfer.overallPar);
-                }
-
-                golferMap[golfer.golferId] = {
-                  firstName: golfer.firstName,
-                  golferId: golfer.golferId,
-                  lastName: golfer.lastName,
-                  overallPar: golfer.overallPar,
-                  status: golfer.status,
-                };
-              });
-
-              setCutScore(currentCutScore);
-              setScoresMap(golferMap);
-            })
-            .catch(() => console.error('Error loading scores'));
-        }
-      })
-      .catch(() => console.error('Error loading scoring data'))
-      .finally(() => setLoadingData(false));
-  }, [entriesCollection, tournamentScoresUrl]);
+  const { entriesByUserId, loadingEntries } = useEntries(entriesCollection);
+  const { cutScore, loadingScores, scoresByGolferId } =
+    useScores(tournamentScoresUrl);
+  const { loadingUsers, usersById } = useUsers();
 
   const results = React.useMemo(() => {
-    return Object.values(entriesMap)
+    return Object.values(entriesByUserId)
       .map((entry) => {
         return {
           name: entry.name,
-          overallScore: entry[tournament].reduce((total, pick) => {
-            const golfer = scoresMap[pick] as GolferScore | undefined;
+          overallScore: entry[tournament].reduce((total, golferId) => {
+            const golfer = scoresByGolferId[golferId] as
+              | GolferScore
+              | undefined;
 
             if (golfer) {
               if (golfer.status) {
@@ -121,9 +51,9 @@ export function ResultsTable({
         };
       })
       .sort((a, b) => a.overallScore - b.overallScore);
-  }, [cutScore, entriesMap, scoresMap, tournament]);
+  }, [cutScore, entriesByUserId, scoresByGolferId, tournament]);
 
-  if (loadingData) {
+  if (loadingEntries || loadingScores || loadingUsers) {
     return (
       <div className="d-flex align-items-center justify-content-center flex-grow-1">
         <div className="spinner-border" role="status">
@@ -150,12 +80,12 @@ export function ResultsTable({
             index={index}
             key={result.name}
             result={result}
-            scoreMap={scoresMap}
+            scoresByGolferId={scoresByGolferId}
             tied={
               index > 0 &&
               results[index - 1].overallScore === result.overallScore
             }
-            userNamesById={usersMap}
+            usersById={usersById}
           />
         ))}
       </tbody>
