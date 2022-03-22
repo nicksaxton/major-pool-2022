@@ -42,7 +42,7 @@ export default function CreateEntryPage() {
   const [loadingGolfers, setLoadingGolfers] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('/scrape-golfers')
+    fetch('https://major-pool-api.vercel.app/api/scrape-golfers')
       .then((resp) => resp.json())
       .then((data) => {
         const golfersData = data as Golfer[];
