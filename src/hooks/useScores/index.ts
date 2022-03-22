@@ -24,7 +24,7 @@ export function useScores(url: string): ReturnType {
   React.useEffect(() => {
     setLoadingScores(true);
 
-    fetch(`${process.env.REACT_APP_API_URL ?? ''}/cors?url=${url}`)
+    fetch(`https://major-pool-api.vercel.app/api/cors?url=${url}`)
       .then((resp) => resp.json())
       .then((data: ScoresResponse) => {
         const scores: Record<number, GolferScore> = {};

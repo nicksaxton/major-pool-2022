@@ -6,7 +6,7 @@ export default function PreviousResultsPage() {
   const [loadingGolfers, setLoadingGolfers] = React.useState(true);
   const [golferMap, setGolferMap] = React.useState<Record<number, Golfer>>([]);
   React.useEffect(() => {
-    fetch('/scrape-golfers')
+    fetch('https://major-pool-api.vercel.app/api/scrape-golfers')
       .then((resp) => resp.json())
       .then((data) => {
         const golfersData = data as Golfer[];
