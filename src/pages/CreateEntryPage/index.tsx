@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { addDoc, collection, doc, getDoc } from 'firebase/firestore/lite';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore/lite';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
@@ -57,6 +65,7 @@ export default function CreateEntryPage() {
   } = useAuth();
   const [userInfo, setUserInfo] = React.useState<{ name: string } | null>(null);
   const [loadingUser, setLoadingUser] = React.useState(true);
+  const [numberOfEntries, setNumberOfEntries] = React.useState(0);
   React.useEffect(() => {
     const userId = user?.uid;
 
@@ -70,6 +79,17 @@ export default function CreateEntryPage() {
         })
         .catch(() => console.error('Error loading user data'))
         .finally(() => setLoadingUser(false));
+
+      const entriesQuery = query(
+        collection(db, 'entries_2022'),
+        where('userId', '==', userId)
+      );
+
+      getDocs(entriesQuery)
+        .then((result) => {
+          setNumberOfEntries(result.size);
+        })
+        .catch(() => console.error('Problem finding existing entry count'));
     }
   }, [user?.uid]);
 
@@ -93,7 +113,7 @@ export default function CreateEntryPage() {
 
       <Formik
         initialValues={{
-          name: `${userInfo?.name} 1`,
+          name: `${userInfo?.name} ${numberOfEntries + 1}`,
           picks: {
             masters: [] as string[],
             open: [] as string[],
