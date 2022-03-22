@@ -140,7 +140,7 @@ export function TournamentPicks({
                   <div className="form-check d-flex align-items-center">
                     <Field
                       className="form-check-input me-4"
-                      disabled={picks[tournament].length === 3}
+                      disabled={picks[tournament].length === 4}
                       id={`masters_${golfer.id}`}
                       name={`picks[${tournament}]`}
                       type="checkbox"

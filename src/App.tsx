@@ -10,7 +10,7 @@ function App() {
   const { state } = useAuth();
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column min-vh-100 bg-light">
       <Navbar
         authenticated={state.authenticated}
         onSignOut={() => signOut(auth)}

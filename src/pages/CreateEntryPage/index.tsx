@@ -1,18 +1,39 @@
 import * as React from 'react';
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore/lite';
 import { Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 
+import { Button } from 'components/Button';
+import { db } from 'utils/firebase';
 import { Golfer } from 'types';
 import { TextField } from 'components/TextField';
 import { TournamentPicks } from 'components/TournamentPicks';
+import { useAuth } from 'contexts/auth';
 
 import MastersLogo from 'images/masters-logo.svg';
 import OpenChampionshipLogo from 'images/the-open-logo.png';
 import PGALogo from 'images/pga-logo.png';
 import USOpenLogo from 'images/us-open-logo.jpg';
-import { useAuth } from 'contexts/auth';
-import { useNavigate } from 'react-router-dom';
-import { db } from 'utils/firebase';
-import { doc, getDoc } from 'firebase/firestore/lite';
+
+const tournamentPicksSchema = yup
+  .array(yup.number())
+  .min(4, 'You must select exactly four golfers per tournament.')
+  .max(4, 'You must select exactly four golfers per tournament.');
+
+const validationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required('Please enter a name for your entry.')
+    .min(5, 'Entry name must be at least five characters.')
+    .max(50, 'Entry name must be less than 50 characters.'),
+  picks: yup.object().shape({
+    masters: tournamentPicksSchema,
+    open: tournamentPicksSchema,
+    pga: tournamentPicksSchema,
+    us: tournamentPicksSchema,
+  }),
+});
 
 export default function CreateEntryPage() {
   const navigate = useNavigate();
@@ -80,15 +101,38 @@ export default function CreateEntryPage() {
             us: [] as string[],
           },
         }}
-        onSubmit={() => {}}
+        onSubmit={async (values) => {
+          try {
+            await addDoc(collection(db, 'entries_2022'), {
+              name: values.name,
+              masters: values.picks.masters.map((pick) => Number(pick)),
+              open: values.picks.open.map((pick) => Number(pick)),
+              pga: values.picks.pga.map((pick) => Number(pick)),
+              us: values.picks.us.map((pick) => Number(pick)),
+              userId: user?.uid,
+            });
+
+            navigate('/', { replace: true, state: { success: true } });
+          } catch (error: unknown) {
+            console.error('Problem creating entry', error);
+          }
+        }}
+        validationSchema={validationSchema}
       >
-        {({ handleSubmit, values }) => (
+        {({ handleSubmit, errors, submitCount, values }) => (
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-sm-6">
                 <TextField label="Entry Name" name="name" />
               </div>
             </div>
+
+            <div className="row">
+              <div className="col">
+                <p>Please select four golfers per tournament.</p>
+              </div>
+            </div>
+
             <div className="row">
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
@@ -136,6 +180,22 @@ export default function CreateEntryPage() {
                   picks={values.picks}
                   tournament="open"
                 />
+              </div>
+            </div>
+
+            {(errors.picks?.masters ||
+              errors.picks?.open ||
+              errors.picks?.pga ||
+              errors.picks?.us) &&
+              submitCount > 0 && (
+                <div className="alert alert-danger">
+                  You must select exactly four golfers per tournament.
+                </div>
+              )}
+
+            <div className="row justify-content-end">
+              <div className="col-sm-3">
+                <Button type="submit">Create Entry</Button>
               </div>
             </div>
           </form>
