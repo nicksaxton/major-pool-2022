@@ -1,4 +1,4 @@
-import { Field } from 'formik';
+import { Field, FieldProps } from 'formik';
 import * as React from 'react';
 import { Golfer } from 'types';
 
@@ -96,14 +96,24 @@ export function TournamentPicks({
               {selectedGolfers.map((golfer) => (
                 <li className="list-group-item" key={golfer.name}>
                   <div className="form-check d-flex align-items-center">
-                    <Field
-                      className="form-check-input me-4"
-                      id={`masters_${golfer.id}`}
-                      name={`picks[${tournament}]`}
-                      type="checkbox"
-                      value={String(golfer.id)}
-                    />
-                    <label htmlFor={`masters_${golfer.id}`}>
+                    <Field name={`picks[${tournament}]`}>
+                      {({ field }: FieldProps) => (
+                        <input
+                          {...field}
+                          checked={!!field.value}
+                          id={`${tournament}_${golfer.id}`}
+                          type="checkbox"
+                          onChange={(e) => {
+                            setSearchTerm('');
+
+                            field.onChange(e);
+                          }}
+                          className="form-check-input me-4"
+                          value={String(golfer.id)}
+                        />
+                      )}
+                    </Field>
+                    <label htmlFor={`${tournament}_${golfer.id}`}>
                       <img
                         className={styles.GolferPhoto}
                         src={golfer.photo}
@@ -138,14 +148,23 @@ export function TournamentPicks({
                   key={golfer.name}
                 >
                   <div className="form-check d-flex align-items-center">
-                    <Field
-                      className="form-check-input me-4"
-                      disabled={picks[tournament].length === 4}
-                      id={`masters_${golfer.id}`}
-                      name={`picks[${tournament}]`}
-                      type="checkbox"
-                      value={String(golfer.id)}
-                    />
+                    <Field name={`picks[${tournament}]`}>
+                      {({ field }: FieldProps) => (
+                        <input
+                          {...field}
+                          disabled={picks[tournament].length === 4}
+                          id={`masters_${golfer.id}`}
+                          type="checkbox"
+                          className="form-check-input me-4"
+                          value={String(golfer.id)}
+                          onChange={(e) => {
+                            setSearchTerm('');
+
+                            field.onChange(e);
+                          }}
+                        />
+                      )}
+                    </Field>
                     <label htmlFor={`masters_${golfer.id}`}>
                       <img
                         className={styles.GolferPhoto}

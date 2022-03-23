@@ -7,12 +7,14 @@ import { Navbar } from 'components/Navbar';
 import { useAuth } from 'contexts/auth';
 
 function App() {
-  const { state } = useAuth();
+  const {
+    state: { authenticated, verifying },
+  } = useAuth();
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-light">
       <Navbar
-        authenticated={state.authenticated}
+        authenticated={!verifying && authenticated}
         onSignOut={() => signOut(auth)}
       />
       <div className="container d-flex flex-column flex-grow-1">

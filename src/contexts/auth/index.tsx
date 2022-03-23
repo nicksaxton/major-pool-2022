@@ -19,7 +19,7 @@ function authReducer(state: State, action: Action) {
     case 'login_start':
       return {
         authenticated: true,
-        verifying: false,
+        verifying: true,
       };
 
     case 'login_success':
