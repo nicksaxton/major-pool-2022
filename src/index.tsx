@@ -15,6 +15,7 @@ import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import PreviousResultsPage from 'pages/PreviousResultsPage';
 import { ResultsTable } from 'components/ResultsTable';
 import { OverallResultsTable } from 'components/OverallResultsTable';
+import EditEntryPage from 'pages/EditEntryPage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -33,6 +34,7 @@ ReactDOM.render(
           <Route path="create-account" element={<CreateAccountPage />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="create-entry" element={<CreateEntryPage />} />
+          <Route path="edit-entry/:entryId" element={<EditEntryPage />} />
           <Route path="2021" element={<PreviousResultsPage />}>
             <Route
               index

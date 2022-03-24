@@ -1,3 +1,13 @@
+export type Entry = {
+  id: string;
+  name: string;
+  masters: number[];
+  open: number[];
+  pga: number[];
+  us: number[];
+  userId: string;
+};
+
 export type Golfer = {
   id: number;
   name: string;
