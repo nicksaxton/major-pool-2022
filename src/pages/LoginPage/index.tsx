@@ -39,7 +39,7 @@ function LoginPage() {
 
       {passwordReset && (
         <div className="alert alert-success">
-          You've successfully reset your password.
+          You&apos;ve successfully reset your password.
         </div>
       )}
 
