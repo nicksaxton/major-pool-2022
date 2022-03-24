@@ -16,8 +16,12 @@ function LoginPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const locationState = location.state as { from?: Location } | null;
+  const locationState = location.state as {
+    from?: Location;
+    passwordReset?: boolean;
+  } | null;
   const from = locationState?.from?.pathname ?? '/';
+  const passwordReset = locationState?.passwordReset;
 
   React.useLayoutEffect(() => {
     if (state.authenticated) {
@@ -30,6 +34,12 @@ function LoginPage() {
       {error && (
         <div className="alert alert-danger" role="alert">
           <small>{error}</small>
+        </div>
+      )}
+
+      {passwordReset && (
+        <div className="alert alert-success">
+          You've successfully reset your password.
         </div>
       )}
 
