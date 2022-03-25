@@ -1,25 +1,10 @@
 import * as React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { Golfer } from 'types';
+
+import { useGolfers } from 'hooks/useGolfers';
 
 export default function PreviousResultsPage() {
-  const [loadingGolfers, setLoadingGolfers] = React.useState(true);
-  const [golferMap, setGolferMap] = React.useState<Record<number, Golfer>>([]);
-  React.useEffect(() => {
-    fetch('https://major-pool-api.vercel.app/api/scrape-golfers')
-      .then((resp) => resp.json())
-      .then((data) => {
-        const golfersData = data as Golfer[];
-        setGolferMap(
-          golfersData.reduce<Record<number, Golfer>>((map, golfer) => {
-            map[golfer.id] = golfer;
-            return map;
-          }, {})
-        );
-      })
-      .catch(() => console.error('Problem fetching golfers'))
-      .finally(() => setLoadingGolfers(false));
-  }, []);
+  const { golfersById, loading: loadingGolfers } = useGolfers();
 
   if (loadingGolfers) {
     return (
@@ -61,7 +46,7 @@ export default function PreviousResultsPage() {
         </li>
       </ul>
 
-      <Outlet context={golferMap} />
+      <Outlet context={golfersById} />
     </>
   );
 }

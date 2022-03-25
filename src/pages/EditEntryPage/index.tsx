@@ -6,10 +6,11 @@ import * as yup from 'yup';
 
 import { Button } from 'components/Button';
 import { db } from 'utils/firebase';
-import { Entry, Golfer } from 'types';
+import { Entry } from 'types';
 import { TextField } from 'components/TextField';
 import { TournamentPicks } from 'components/TournamentPicks';
 import { useAuth } from 'contexts/auth';
+import { useGolfers } from 'hooks/useGolfers';
 
 import MastersLogo from 'images/masters-logo.svg';
 import OpenChampionshipLogo from 'images/the-open-logo.png';
@@ -38,19 +39,12 @@ const validationSchema = yup.object().shape({
 export default function EditEntryPage() {
   const navigate = useNavigate();
 
-  const [golfers, setGolfers] = React.useState<Golfer[]>([]);
-  const [loadingGolfers, setLoadingGolfers] = React.useState(true);
-
-  React.useEffect(() => {
-    fetch('https://major-pool-api.vercel.app/api/scrape-golfers')
-      .then((resp) => resp.json())
-      .then((data) => {
-        const golfersData = data as Golfer[];
-        setGolfers(golfersData.sort((a, b) => a.ranking - b.ranking));
-      })
-      .catch(() => console.error('Problem fetching golfers'))
-      .finally(() => setLoadingGolfers(false));
-  }, []);
+  const { golfersById, loading: loadingGolfers } = useGolfers();
+  const golfers = React.useMemo(() => {
+    return golfersById
+      ? Object.values(golfersById).sort((a, b) => a.ranking - b.ranking)
+      : [];
+  }, [golfersById]);
 
   const {
     state: { authenticated },
