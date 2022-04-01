@@ -25,7 +25,7 @@ export function useGolfers() {
           }, {})
         );
       })
-      .catch(() => console.error('Problem fetching golfers'))
+      .catch((error) => console.error('Problem fetching golfers', error))
       .finally(() => setLoading(false));
   }, []);
 
