@@ -79,9 +79,9 @@ export function TournamentPicks({
   return (
     <div className={classnames(styles.TournamentPicks, tournamentStyle)}>
       <div className="d-flex flex-column align-items-center justify-content-center">
-        <h4>{name}</h4>
-        <h6>{course}</h6>
-        <h6>{dates}</h6>
+        <h4 className="text-center">{name}</h4>
+        <h6 className="text-center">{course}</h6>
+        <h6 className="text-center">{dates}</h6>
         <div className={styles.TournamentLogoWrapper}>
           <img
             className={styles.TournamentLogo}
@@ -113,7 +113,10 @@ export function TournamentPicks({
                         />
                       )}
                     </Field>
-                    <label htmlFor={`${tournament}_${golfer.id}`}>
+                    <label
+                      className="d-flex align-items-center"
+                      htmlFor={`${tournament}_${golfer.id}`}
+                    >
                       <img
                         className={styles.GolferPhoto}
                         src={golfer.photo}
@@ -165,7 +168,10 @@ export function TournamentPicks({
                         />
                       )}
                     </Field>
-                    <label htmlFor={`masters_${golfer.id}`}>
+                    <label
+                      className="d-flex align-items-center"
+                      htmlFor={`masters_${golfer.id}`}
+                    >
                       <img
                         className={styles.GolferPhoto}
                         src={golfer.photo}
