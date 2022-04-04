@@ -18,6 +18,8 @@ export default function PreviousResultsPage() {
 
   return (
     <>
+      <h3 className="my-4">Major Pool 2021 Results</h3>
+
       <ul className="nav nav-pills">
         <li className="nav-item">
           <NavLink className="nav-link" end to="">
