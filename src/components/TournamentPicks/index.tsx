@@ -45,7 +45,7 @@ export function TournamentPicks({
           !picks.pga.includes(String(golfer.id)) &&
           !picks.us.includes(String(golfer.id))
       )
-      .slice(0, 10);
+      .slice(0, 20);
   }, [golfers, picks, searchTerm]);
 
   const selectedGolfers = React.useMemo(() => {
