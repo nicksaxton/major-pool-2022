@@ -10,12 +10,14 @@ import { ResultRow } from './ResultRow';
 
 type Props = {
   entriesCollection: string;
+  golfers?: Record<number, Golfer>;
   tournament: 'masters' | 'pga' | 'open' | 'us';
   tournamentScoresUrl: string;
 };
 
 export function ResultsTable({
   entriesCollection,
+  golfers,
   tournament,
   tournamentScoresUrl,
 }: Props) {
@@ -76,7 +78,7 @@ export function ResultsTable({
         {results.map((result, index) => (
           <ResultRow
             cutScore={cutScore}
-            golfersById={golfersById}
+            golfersById={golfers ?? golfersById}
             index={index}
             key={result.name}
             result={result}

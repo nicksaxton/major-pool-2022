@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 
 import { db } from 'utils/firebase';
 import { useAuth } from 'contexts/auth';
-import { Entry } from 'types';
+import { Entry, Golfer } from 'types';
 import { hasMastersStarted } from 'utils/hasMastersStarted';
+import { ResultsTable } from 'components/ResultsTable';
+import { useGolfers } from 'hooks/useGolfers';
 
 export default function HomePage() {
   const {
@@ -15,6 +17,8 @@ export default function HomePage() {
   const [userEntries, setUserEntries] = React.useState<Entry[]>([]);
 
   const mastersStarted = hasMastersStarted();
+
+  const { golfersById, loading: loadingGolfers } = useGolfers();
 
   React.useEffect(() => {
     if (user) {
@@ -39,7 +43,7 @@ export default function HomePage() {
     }
   }, [user]);
 
-  if (verifying) {
+  if (verifying || (mastersStarted && loadingGolfers)) {
     return null;
   }
 
@@ -102,7 +106,20 @@ export default function HomePage() {
         </>
       )}
 
-      <div>Entries will be viewable once The Masters begins on April 7.</div>
+      {mastersStarted ? (
+        <div>
+          <h4>The Masters</h4>
+
+          <ResultsTable
+            entriesCollection="entries_2022"
+            golfers={golfersById as Record<number, Golfer>}
+            tournament="masters"
+            tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19540/leaderboard"
+          />
+        </div>
+      ) : (
+        <div>Entries will be viewable once The Masters begins on April 7.</div>
+      )}
     </div>
   );
 }
