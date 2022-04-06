@@ -12,18 +12,18 @@ import styles from './AdminPage.module.scss';
 
 export default function AdminPage() {
   const {
-    state: { authenticated, user, verifying },
+    state: { user, verifying },
   } = useAuth();
   const { loadingUsers, usersById } = useUsers();
 
   const isAdmin = React.useMemo(() => {
-    if (authenticated && !loadingUsers && user) {
+    if (user) {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       return usersById[user.uid]?.admin ?? false;
     }
 
     return false;
-  }, [authenticated, loadingUsers, user, usersById]);
+  }, [user, usersById]);
 
   const { entriesByUserId, loadingEntries } = useEntries('entries_2022');
 
@@ -31,7 +31,7 @@ export default function AdminPage() {
     a.name.localeCompare(b.name)
   );
 
-  if (!verifying && !authenticated && !isAdmin) {
+  if (!verifying && !loadingUsers && !isAdmin) {
     return <Navigate replace to="/" />;
   }
 
