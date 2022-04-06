@@ -31,5 +31,6 @@ export type Result = {
 };
 
 export type User = {
+  admin: boolean;
   name: string;
 };

@@ -17,8 +17,15 @@ export function useUsers() {
           const users: Record<string, User> = {};
 
           snapshot.docs.forEach((doc) => {
-            const data = doc.data() as { firstName: string; lastName: string };
-            users[doc.id] = { name: `${data.firstName} ${data.lastName}` };
+            const data = doc.data() as {
+              admin: boolean;
+              firstName: string;
+              lastName: string;
+            };
+            users[doc.id] = {
+              admin: data.admin,
+              name: `${data.firstName} ${data.lastName}`,
+            };
           });
 
           setUsersById(users);

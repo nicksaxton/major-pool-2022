@@ -48,7 +48,7 @@ type AuthProviderProps = {
 const initialState: State = {
   authenticated: false,
   user: undefined,
-  verifying: false,
+  verifying: true,
 };
 
 function AuthProvider({ children }: AuthProviderProps) {

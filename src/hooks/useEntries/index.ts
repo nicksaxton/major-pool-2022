@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from 'utils/firebase';
 
 type Entry = {
+  entryId: string;
   name: string;
   userId: string;
   masters: number[];
@@ -27,7 +28,7 @@ export function useEntries(entriesCollection: string) {
           const entries: Record<string, Entry> = {};
 
           snapshot.docs.forEach((doc) => {
-            entries[doc.id] = doc.data() as Entry;
+            entries[doc.id] = { entryId: doc.id, ...doc.data() } as Entry;
           });
 
           setEntriesByUserId(entries);

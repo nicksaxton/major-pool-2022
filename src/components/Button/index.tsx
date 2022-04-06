@@ -8,7 +8,7 @@ type Props = {
   onClick?: () => void;
   size?: 'sm' | 'lg';
   type?: 'button' | 'submit';
-  variant?: 'outline-danger' | 'primary';
+  variant?: 'danger' | 'outline-danger' | 'primary';
 };
 
 export function Button({
@@ -22,7 +22,7 @@ export function Button({
   return (
     <button
       className={classnames(
-        `btn btn-${variant} w-100`,
+        `btn btn-${variant} d-block`,
         { [`btn-${size ?? ''}`]: !!size },
         className
       )}
