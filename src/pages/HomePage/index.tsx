@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { db } from 'utils/firebase';
 import { useAuth } from 'contexts/auth';
 import { Entry } from 'types';
+import { hasMastersStarted } from 'utils/hasMastersStarted';
 
 export default function HomePage() {
   const {
@@ -12,6 +13,8 @@ export default function HomePage() {
   } = useAuth();
 
   const [userEntries, setUserEntries] = React.useState<Entry[]>([]);
+
+  const mastersStarted = hasMastersStarted();
 
   React.useEffect(() => {
     if (user) {
@@ -45,11 +48,13 @@ export default function HomePage() {
       <h2 className="mb-4">Welcome to the 2022 edition of The Major Pool!</h2>
 
       {authenticated ? (
-        <div className="mb-4">
-          <Link className="btn btn-primary" to="/create-entry">
-            Create Entry
-          </Link>
-        </div>
+        mastersStarted ? null : (
+          <div className="mb-4">
+            <Link className="btn btn-primary" to="/create-entry">
+              Create Entry
+            </Link>
+          </div>
+        )
       ) : (
         <div className="mb-4">
           <Link to="/login">Log in</Link> or{' '}
@@ -64,14 +69,14 @@ export default function HomePage() {
 
       <hr />
 
-      {authenticated && (
+      {authenticated && !mastersStarted && (
         <>
           <h4>Your entries</h4>
 
           {userEntries.length === 0 ? (
             <p>
-              You haven't created any entries yet. Click the button above to
-              create one.
+              You haven&apos;t created any entries yet. Click the button above
+              to create one.
             </p>
           ) : (
             <div className="row">
