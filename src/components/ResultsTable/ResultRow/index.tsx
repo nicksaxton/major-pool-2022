@@ -68,8 +68,15 @@ export function ResultRow({
                     alt={golfer.name}
                   />
                   {golfer.name}
-                  <div className="ms-2">
-                    {formatScore(score ? score.overallPar : cutScore + 1)}
+                  <div
+                    className={classnames('ms-2', {
+                      'text-danger': score?.status !== '',
+                    })}
+                  >
+                    {formatScore(
+                      score?.status === '' ? score.overallPar : cutScore + 1
+                    )}{' '}
+                    {score && score.status !== '' && `(${score.status})`}
                   </div>
                 </div>
               );
