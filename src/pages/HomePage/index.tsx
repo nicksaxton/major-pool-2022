@@ -8,6 +8,7 @@ import { Entry, Golfer } from 'types';
 import { hasMastersStarted } from 'utils/hasMastersStarted';
 import { ResultsTable } from 'components/ResultsTable';
 import { useGolfers } from 'hooks/useGolfers';
+import { MyPicks } from 'components/MyPicks';
 
 export default function HomePage() {
   const {
@@ -54,78 +55,24 @@ export default function HomePage() {
   }
 
   return (
-    <div className="p-4">
-      {/* <h2 className="mb-4">Welcome to the 2022 edition of The Major Pool!</h2>
+    <div className="flex-grow-1 p-4">
+      <div className="mb-5">
+        <h4>The Masters</h4>
 
-      {authenticated ? (
-        mastersStarted ? null : (
-          <div className="mb-4">
-            <Link className="btn btn-primary" to="/create-entry">
-              Create Entry
-            </Link>
-          </div>
-        )
-      ) : (
-        <div className="mb-4">
-          <Link to="/login">Log in</Link> or{' '}
-          <Link to="/create-account">create an account</Link> to create an
-          entry.
-        </div>
-      )}
-
-      <div>
-        <Link to="/2021">View 2021 Results</Link>
+        <ResultsTable
+          entriesCollection="entries_2022"
+          golfers={golfersById as Record<number, Golfer>}
+          tournament="masters"
+          tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19540/leaderboard"
+        />
       </div>
 
-      <hr /> */}
-
-      {authenticated && !mastersStarted && (
-        <>
-          <h4>Your entries</h4>
-
-          {userEntries.length === 0 ? (
-            <p>
-              You haven&apos;t created any entries yet. Click the button above
-              to create one.
-            </p>
-          ) : (
-            <div className="row">
-              <div className="col">
-                {userEntries.map((entry) => (
-                  <div className="d-flex align-items-center" key={entry.name}>
-                    <div>{entry.name}</div>
-                    <div className="ms-auto">
-                      <Link
-                        className="btn btn-primary"
-                        to={`/edit-entry/${entry.id}`}
-                      >
-                        Edit
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <hr />
-        </>
-      )}
-
-      {mastersStarted ? (
-        <div>
-          <h4>The Masters</h4>
-
-          <ResultsTable
-            entriesCollection="entries_2022"
-            golfers={golfersById as Record<number, Golfer>}
-            tournament="masters"
-            tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19540/leaderboard"
-          />
-        </div>
-      ) : (
-        <div>Entries will be viewable once The Masters begins on April 7.</div>
-      )}
+      {authenticated &&
+        userEntries.length > 0 &&
+        !loadingGolfers &&
+        golfersById && (
+          <MyPicks entries={userEntries} golfersById={golfersById} />
+        )}
 
       <div>
         <p>Previous year results:</p>
