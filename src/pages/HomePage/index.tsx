@@ -44,12 +44,18 @@ export default function HomePage() {
   }, [user]);
 
   if (verifying || (mastersStarted && loadingGolfers)) {
-    return null;
+    return (
+      <div className="d-flex align-items-center justify-content-center flex-grow-1">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="p-4">
-      <h2 className="mb-4">Welcome to the 2022 edition of The Major Pool!</h2>
+      {/* <h2 className="mb-4">Welcome to the 2022 edition of The Major Pool!</h2>
 
       {authenticated ? (
         mastersStarted ? null : (
@@ -71,7 +77,7 @@ export default function HomePage() {
         <Link to="/2021">View 2021 Results</Link>
       </div>
 
-      <hr />
+      <hr /> */}
 
       {authenticated && !mastersStarted && (
         <>
@@ -120,6 +126,15 @@ export default function HomePage() {
       ) : (
         <div>Entries will be viewable once The Masters begins on April 7.</div>
       )}
+
+      <div>
+        <p>Previous year results:</p>
+        <ul>
+          <li>
+            <Link to="/2021">2021</Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
