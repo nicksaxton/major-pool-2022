@@ -57,6 +57,17 @@ export default function HomePage() {
   return (
     <div className="flex-grow-1 p-4">
       <div className="mb-5">
+        <h4>PGA Championship</h4>
+
+        <ResultsTable
+          entriesCollection="entries_2022"
+          golfers={golfersById as Record<number, Golfer>}
+          tournament="pga"
+          tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19546/leaderboard"
+        />
+      </div>
+
+      <div className="mb-5">
         <h4>The Masters</h4>
 
         <ResultsTable
