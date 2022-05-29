@@ -17,12 +17,12 @@ import { db } from 'utils/firebase';
 import { TextField } from 'components/TextField';
 import { TournamentPicks } from 'components/TournamentPicks';
 import { useAuth } from 'contexts/auth';
-import { useGolfers } from 'hooks/useGolfers';
 
 import MastersLogo from 'images/masters-logo.svg';
 import OpenChampionshipLogo from 'images/the-open-logo.png';
 import PGALogo from 'images/pga-logo.png';
 import USOpenLogo from 'images/us-open-logo.jpg';
+import { useGolfers } from 'contexts/golfers';
 
 const tournamentPicksSchema = yup
   .array(yup.number())
@@ -46,11 +46,9 @@ const validationSchema = yup.object().shape({
 export default function CreateEntryPage() {
   const navigate = useNavigate();
 
-  const { golfersById, loading: loadingGolfers } = useGolfers();
+  const golfersById = useGolfers();
   const golfers = React.useMemo(() => {
-    return golfersById
-      ? Object.values(golfersById).sort((a, b) => a.ranking - b.ranking)
-      : [];
+    return Object.values(golfersById).sort((a, b) => a.ranking - b.ranking);
   }, [golfersById]);
 
   const {
@@ -90,7 +88,7 @@ export default function CreateEntryPage() {
     navigate('/', { replace: true });
   }
 
-  if (loadingGolfers || loadingUser) {
+  if (loadingUser) {
     return (
       <div className="d-flex align-items-center justify-content-center flex-grow-1">
         <div className="spinner-border" role="status">

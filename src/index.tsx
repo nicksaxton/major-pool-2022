@@ -4,20 +4,24 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import 'custom.scss';
 
+import reportWebVitals from 'reportWebVitals';
+
 import App from 'App';
+
 import { AuthProvider } from 'contexts/auth';
+import { GolfersProvider } from 'contexts/golfers';
+import { OverallResultsTable } from 'components/OverallResultsTable';
+import { ResultsTable } from 'components/ResultsTable';
+
+import AdminPage from 'pages/AdminPage';
 import CreateAccountPage from 'pages/CreateAccountPage';
 import CreateEntryPage from 'pages/CreateEntryPage';
+import EditEntryPage from 'pages/EditEntryPage';
+import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
-import reportWebVitals from 'reportWebVitals';
-import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import PreviousResultsPage from 'pages/PreviousResultsPage';
-import { ResultsTable } from 'components/ResultsTable';
-import { OverallResultsTable } from 'components/OverallResultsTable';
-import EditEntryPage from 'pages/EditEntryPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
-import AdminPage from 'pages/AdminPage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,9 +30,11 @@ ReactDOM.render(
         <Route
           path="/"
           element={
-            <AuthProvider>
-              <App />
-            </AuthProvider>
+            <GolfersProvider>
+              <AuthProvider>
+                <App />
+              </AuthProvider>
+            </GolfersProvider>
           }
         >
           <Route index element={<HomePage />} />

@@ -1,20 +1,10 @@
 import * as React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
-import { useGolfers } from 'hooks/useGolfers';
+import { useGolfers } from 'contexts/golfers';
 
 export default function PreviousResultsPage() {
-  const { golfersById, loading: loadingGolfers } = useGolfers();
-
-  if (loadingGolfers) {
-    return (
-      <div className="d-flex align-items-center justify-content-center flex-grow-1">
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
+  const golfersById = useGolfers();
 
   return (
     <>

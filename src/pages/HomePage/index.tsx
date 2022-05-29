@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 import { db } from 'utils/firebase';
 import { useAuth } from 'contexts/auth';
 import { Entry, Golfer } from 'types';
-import { hasMastersStarted } from 'utils/hasMastersStarted';
 import { ResultsTable } from 'components/ResultsTable';
-import { useGolfers } from 'hooks/useGolfers';
 import { MyPicks } from 'components/MyPicks';
+import { useGolfers } from 'contexts/golfers';
 
 export default function HomePage() {
   const {
@@ -17,9 +16,7 @@ export default function HomePage() {
 
   const [userEntries, setUserEntries] = React.useState<Entry[]>([]);
 
-  const mastersStarted = hasMastersStarted();
-
-  const { golfersById, loading: loadingGolfers } = useGolfers();
+  const golfersById = useGolfers();
 
   React.useEffect(() => {
     if (user) {
@@ -44,7 +41,7 @@ export default function HomePage() {
     }
   }, [user]);
 
-  if (verifying || (mastersStarted && loadingGolfers)) {
+  if (verifying) {
     return (
       <div className="d-flex align-items-center justify-content-center flex-grow-1">
         <div className="spinner-border" role="status">
@@ -78,12 +75,9 @@ export default function HomePage() {
         />
       </div>
 
-      {authenticated &&
-        userEntries.length > 0 &&
-        !loadingGolfers &&
-        golfersById && (
-          <MyPicks entries={userEntries} golfersById={golfersById} />
-        )}
+      {authenticated && userEntries.length > 0 && (
+        <MyPicks entries={userEntries} golfersById={golfersById} />
+      )}
 
       <div>
         <p>Previous year results:</p>
