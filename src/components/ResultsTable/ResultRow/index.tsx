@@ -29,6 +29,22 @@ export function ResultRow({
 
   const userName = usersById[result.userId].name;
 
+  const picksSortedByScore = React.useMemo(() => {
+    return result.picks.sort((a, b) => {
+      const aScore = scoresByGolferId[a];
+      const bScore = scoresByGolferId[b];
+
+      const aTotal =
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        aScore && aScore.status === '' ? aScore.overallPar : cutScore + 1;
+      const bTotal =
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        bScore && bScore.status === '' ? bScore.overallPar : cutScore + 1;
+
+      return aTotal - bTotal;
+    });
+  }, [cutScore, result.picks, scoresByGolferId]);
+
   return (
     <React.Fragment key={result.name}>
       <tr
@@ -45,46 +61,54 @@ export function ResultRow({
       </tr>
       <tr>
         <td colSpan={3}>
-          <div className="row p-4">
-            {result.picks.map((golferId) => {
-              const golfer = golfersById[golferId];
-              const score = scoresByGolferId[golferId] as
-                | GolferScore
-                | undefined;
+          <div className="row justify-content-end p-lg-4 me-lg-4">
+            <div className="col-12 col-lg-8">
+              <table className="table table-bordered">
+                <tbody>
+                  {picksSortedByScore.map((golferId) => {
+                    const golfer = golfersById[golferId];
+                    const score = scoresByGolferId[golferId] as
+                      | GolferScore
+                      | undefined;
 
-              return (
-                <div
-                  className="d-flex align-items-center justify-content-end col-12 mb-2 px-5"
-                  key={`${result.userId}_${golferId}`}
-                >
-                  <img
-                    style={{
-                      borderRadius: '9999px',
-                      height: '32px',
-                      marginRight: '10px',
-                      width: '32px',
-                    }}
-                    src={golfer.photo}
-                    alt={golfer.name}
-                  />
-                  {golfer.name}
-                  <div
-                    className={classnames('ms-2', {
-                      'text-danger': score?.status !== '',
-                    })}
-                  >
-                    {formatScore(
-                      score?.status === '' ? score.overallPar : cutScore + 1
-                    )}{' '}
-                    {score
-                      ? score.status === ''
-                        ? ''
-                        : `(${score.status})`
-                      : `(DNP)`}
-                  </div>
-                </div>
-              );
-            })}
+                    return (
+                      <tr key={`${result.userId}_${golferId}`}>
+                        <td>
+                          <img
+                            className="d-none d-md-inline-block"
+                            style={{
+                              borderRadius: '9999px',
+                              height: '32px',
+                              marginRight: '10px',
+                              width: '32px',
+                            }}
+                            src={golfer.photo}
+                            alt={golfer.name}
+                          />
+                          {golfer.name}
+                        </td>
+                        <td
+                          className={classnames('text-end', {
+                            'text-danger': score?.status !== '',
+                          })}
+                        >
+                          {formatScore(
+                            score?.status === ''
+                              ? score.overallPar
+                              : cutScore + 1
+                          )}{' '}
+                          {score
+                            ? score.status === ''
+                              ? ''
+                              : `(${score.status})`
+                            : `(DNP)`}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </td>
       </tr>
