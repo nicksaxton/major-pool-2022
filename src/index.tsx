@@ -37,7 +37,44 @@ ReactDOM.render(
             </GolfersProvider>
           }
         >
-          <Route index element={<HomePage />} />
+          <Route path="/" element={<HomePage />}>
+            <Route
+              path=""
+              element={
+                <OverallResultsTable
+                  entriesCollection="entries_2022"
+                  tournamentUrls={{
+                    masters:
+                      'https://www.golfchannel.com/api/v2/events/19540/leaderboard',
+                    pga: 'https://www.golfchannel.com/api/v2/events/19546/leaderboard',
+                    us: '',
+                    open: '',
+                  }}
+                />
+              }
+            />
+
+            <Route
+              path="masters"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="masters"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19540/leaderboard"
+                />
+              }
+            />
+            <Route
+              path="pga"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="pga"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19546/leaderboard"
+                />
+              }
+            />
+          </Route>
 
           <Route path="login" element={<LoginPage />} />
           <Route path="create-account" element={<CreateAccountPage />} />
@@ -54,6 +91,7 @@ ReactDOM.render(
               index
               element={
                 <OverallResultsTable
+                  entriesCollection="entries"
                   tournamentUrls={{
                     masters:
                       'https://www.golfchannel.com/api/v2/events/19208/leaderboard',

@@ -54,7 +54,7 @@ export function ResultRow({
 
               return (
                 <div
-                  className="d-flex align-items-center justify-content-center col-6 col-md-3 mb-2"
+                  className="d-flex align-items-center justify-content-end col-12 mb-2 px-5"
                   key={`${result.userId}_${golferId}`}
                 >
                   <img
@@ -76,7 +76,11 @@ export function ResultRow({
                     {formatScore(
                       score?.status === '' ? score.overallPar : cutScore + 1
                     )}{' '}
-                    {score && score.status !== '' && `(${score.status})`}
+                    {score
+                      ? score.status === ''
+                        ? ''
+                        : `(${score.status})`
+                      : `(DNP)`}
                   </div>
                 </div>
               );

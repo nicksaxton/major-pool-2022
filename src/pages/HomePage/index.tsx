@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore/lite';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
 import { db } from 'utils/firebase';
 import { useAuth } from 'contexts/auth';
-import { Entry, Golfer } from 'types';
-import { ResultsTable } from 'components/ResultsTable';
+import { Entry } from 'types';
 import { MyPicks } from 'components/MyPicks';
 import { useGolfers } from 'contexts/golfers';
 
@@ -53,30 +52,35 @@ export default function HomePage() {
 
   return (
     <div className="flex-grow-1 p-4">
-      <div className="mb-5">
-        <h4>PGA Championship</h4>
+      <h1 className="mb-4">Leaderboard</h1>
 
-        <ResultsTable
-          entriesCollection="entries_2022"
-          golfers={golfersById as Record<number, Golfer>}
-          tournament="pga"
-          tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19546/leaderboard"
-        />
-      </div>
+      <ul className="nav nav-pills">
+        <li className="nav-item">
+          <NavLink className="nav-link" to="">
+            Overall
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="masters">
+            The Masters
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="pga">
+            PGA Championship
+          </NavLink>
+        </li>
+      </ul>
 
-      <div className="mb-5">
-        <h4>The Masters</h4>
-
-        <ResultsTable
-          entriesCollection="entries_2022"
-          golfers={golfersById as Record<number, Golfer>}
-          tournament="masters"
-          tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19540/leaderboard"
-        />
+      <div className="mb-4">
+        <Outlet context={golfersById} />
       </div>
 
       {authenticated && userEntries.length > 0 && (
-        <MyPicks entries={userEntries} golfersById={golfersById} />
+        <>
+          <h1>Picks</h1>
+          <MyPicks entries={userEntries} golfersById={golfersById} />
+        </>
       )}
 
       <div>

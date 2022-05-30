@@ -57,7 +57,10 @@ export function ResultsTable({
 
   if (loadingEntries || loadingScores || loadingUsers) {
     return (
-      <div className="d-flex align-items-center justify-content-center flex-grow-1">
+      <div
+        className="d-flex align-items-center justify-content-center flex-grow-1"
+        style={{ minHeight: '500px' }}
+      >
         <div className="spinner-border" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>

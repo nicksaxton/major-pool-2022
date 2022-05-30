@@ -36,11 +36,15 @@ function calculateScoreForTournament(
 }
 
 type Props = {
+  entriesCollection: string;
   tournamentUrls: TournamentUrls;
 };
 
-export function OverallResultsTable({ tournamentUrls }: Props) {
-  const { entriesByUserId, loadingEntries } = useEntries('entries');
+export function OverallResultsTable({
+  entriesCollection,
+  tournamentUrls,
+}: Props) {
+  const { entriesByUserId, loadingEntries } = useEntries(entriesCollection);
   const {
     cutScore: mastersCutScore,
     loadingScores: loadingMastersScores,
@@ -71,21 +75,27 @@ export function OverallResultsTable({ tournamentUrls }: Props) {
           mastersScoresByGolferId,
           mastersCutScore
         );
-        const openScore = calculateScoreForTournament(
-          entry.open,
-          openScoresByGolferId,
-          openCutScore
-        );
+        const openScore =
+          Object.keys(openScoresByGolferId).length > 0
+            ? calculateScoreForTournament(
+                entry.open,
+                openScoresByGolferId,
+                openCutScore
+              )
+            : 0;
         const pgaScore = calculateScoreForTournament(
           entry.pga,
           pgaScoresByGolferId,
           pgaCutScore
         );
-        const usScore = calculateScoreForTournament(
-          entry.us,
-          usScoresByGolferId,
-          usCutScore
-        );
+        const usScore =
+          Object.keys(usScoresByGolferId).length > 0
+            ? calculateScoreForTournament(
+                entry.us,
+                usScoresByGolferId,
+                usCutScore
+              )
+            : 0;
 
         return {
           name: entry.name,
@@ -115,7 +125,10 @@ export function OverallResultsTable({ tournamentUrls }: Props) {
     loadingUsers
   ) {
     return (
-      <div className="d-flex align-items-center justify-content-center flex-grow-1">
+      <div
+        className="d-flex align-items-center justify-content-center flex-grow-1"
+        style={{ minHeight: '500px' }}
+      >
         <div className="spinner-border" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>

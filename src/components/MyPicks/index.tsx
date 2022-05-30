@@ -11,7 +11,7 @@ export function MyPicks({ entries, golfersById }: Props) {
   return (
     <>
       {entries.map((entry) => (
-        <>
+        <div className="px-5 mt-4" key={entry.id}>
           <h4>{entry.name}</h4>
           <table className="table">
             <thead>
@@ -85,7 +85,7 @@ export function MyPicks({ entries, golfersById }: Props) {
               ))}
             </tbody>
           </table>
-        </>
+        </div>
       ))}
     </>
   );
