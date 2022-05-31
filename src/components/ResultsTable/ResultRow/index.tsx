@@ -9,7 +9,7 @@ import styles from './ResultRow.module.scss';
 type Props = {
   cutScore: number;
   golfersById: Record<number, Golfer>;
-  index: number;
+  position: number;
   result: Result;
   scoresByGolferId: Record<number, GolferScore>;
   tied: boolean;
@@ -19,7 +19,7 @@ type Props = {
 export function ResultRow({
   cutScore,
   golfersById,
-  index,
+  position,
   result,
   scoresByGolferId,
   tied,
@@ -53,7 +53,10 @@ export function ResultRow({
         })}
         onClick={() => setExpanded(!expanded)}
       >
-        <td className="text-center">{tied ? '-' : index + 1}</td>
+        <td className="text-center">
+          {tied ? 'T' : ''}
+          {position}
+        </td>
         <td>
           {result.name} <span className="text-muted">({userName})</span>
         </td>
@@ -63,7 +66,7 @@ export function ResultRow({
         <td colSpan={3}>
           <div className="row justify-content-end p-lg-4 me-lg-4">
             <div className="col-12 col-lg-8">
-              <table className="table table-bordered">
+              <table className="table border rounded">
                 <tbody>
                   {picksSortedByScore.map((golferId) => {
                     const golfer = golfersById[golferId];
@@ -72,8 +75,11 @@ export function ResultRow({
                       | undefined;
 
                     return (
-                      <tr key={`${result.userId}_${golferId}`}>
-                        <td>
+                      <tr
+                        className="align-middle"
+                        key={`${result.userId}_${golferId}`}
+                      >
+                        <td className="ps-4">
                           <img
                             className="d-none d-md-inline-block"
                             style={{
@@ -88,7 +94,7 @@ export function ResultRow({
                           {golfer.name}
                         </td>
                         <td
-                          className={classnames('text-end', {
+                          className={classnames('text-end text-nowrap pe-3', {
                             'text-danger': score?.status !== '',
                           })}
                         >

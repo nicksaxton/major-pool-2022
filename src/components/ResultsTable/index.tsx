@@ -55,6 +55,8 @@ export function ResultsTable({
       .sort((a, b) => a.overallScore - b.overallScore);
   }, [cutScore, entriesByUserId, scoresByGolferId, tournament]);
 
+  const previousPosition = React.useRef(1);
+
   if (loadingEntries || loadingScores || loadingUsers) {
     return (
       <div
@@ -78,21 +80,32 @@ export function ResultsTable({
         </tr>
       </thead>
       <tbody>
-        {results.map((result, index) => (
-          <ResultRow
-            cutScore={cutScore}
-            golfersById={golfers ?? golfersById}
-            index={index}
-            key={result.name}
-            result={result}
-            scoresByGolferId={scoresByGolferId}
-            tied={
-              index > 0 &&
-              results[index - 1].overallScore === result.overallScore
-            }
-            usersById={usersById}
-          />
-        ))}
+        {results.map((result, index) => {
+          let position = previousPosition.current;
+          if (index === 0) {
+            position = 1;
+            previousPosition.current = 1;
+          } else if (result.overallScore !== results[index - 1].overallScore) {
+            position = index + 1;
+            previousPosition.current = index + 1;
+          }
+
+          return (
+            <ResultRow
+              cutScore={cutScore}
+              golfersById={golfers ?? golfersById}
+              key={result.name}
+              position={position}
+              result={result}
+              scoresByGolferId={scoresByGolferId}
+              tied={
+                index > 0 &&
+                results[index - 1].overallScore === result.overallScore
+              }
+              usersById={usersById}
+            />
+          );
+        })}
       </tbody>
     </table>
   );

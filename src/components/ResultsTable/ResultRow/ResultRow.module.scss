@@ -1,5 +1,6 @@
 .ResultRow {
   cursor: pointer;
+  vertical-align: middle;
 
   & + tr {
     display: none;
