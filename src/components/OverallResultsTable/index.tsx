@@ -5,6 +5,7 @@ import { GolferScore } from 'types';
 import { useEntries } from 'hooks/useEntries';
 import { useScores } from 'hooks/useScores';
 import { useUsers } from 'hooks/useUsers';
+import classnames from 'utils/classnames';
 
 type TournamentUrls = {
   masters: string;
@@ -116,6 +117,8 @@ export function OverallResultsTable({
     usScoresByGolferId,
   ]);
 
+  const previousPosition = React.useRef(1);
+
   if (
     loadingEntries ||
     loadingMastersScores ||
@@ -149,13 +152,30 @@ export function OverallResultsTable({
         {results.map((result, index) => {
           const user = usersById[result.userId];
 
+          let position = previousPosition.current;
+          if (index === 0) {
+            position = 1;
+            previousPosition.current = 1;
+          } else if (result.overallScore !== results[index - 1].overallScore) {
+            position = index + 1;
+            previousPosition.current = index + 1;
+          }
+
           return (
-            <tr key={result.name}>
+            <tr
+              className={classnames('bg-opacity-25', {
+                'bg-success': position === 1,
+                'bg-primary': position === 2,
+                'bg-warning': position === 3,
+              })}
+              key={result.name}
+            >
               <td className="text-center">
                 {index > 0 &&
                 results[index - 1].overallScore === result.overallScore
-                  ? '-'
-                  : index + 1}
+                  ? 'T'
+                  : ''}
+                {position}
               </td>
               <td>
                 {result.name} ({user.name})

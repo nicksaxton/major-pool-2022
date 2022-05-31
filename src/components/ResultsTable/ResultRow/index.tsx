@@ -48,8 +48,11 @@ export function ResultRow({
   return (
     <React.Fragment key={result.name}>
       <tr
-        className={classnames(styles.ResultRow, {
+        className={classnames('bg-opacity-25', styles.ResultRow, {
           [styles.Expanded]: expanded,
+          'bg-success': position === 1,
+          'bg-primary': position === 2,
+          'bg-warning': position === 3,
         })}
         onClick={() => setExpanded(!expanded)}
       >
