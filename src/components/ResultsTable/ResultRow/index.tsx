@@ -65,9 +65,15 @@ export function ResultRow({
         </td>
         <td className="text-center">{formatScore(result.overallScore)}</td>
       </tr>
-      <tr>
+      <tr
+        className={classnames('bg-opacity-25', {
+          'bg-success': position === 1,
+          'bg-primary': position === 2,
+          'bg-warning': position === 3,
+        })}
+      >
         <td colSpan={3}>
-          <div className="row justify-content-end p-lg-4 me-lg-4">
+          <div className="row justify-content-center p-lg-4 me-lg-4">
             <div className="col-12 col-lg-8">
               <table className="table border rounded">
                 <tbody>
@@ -76,6 +82,11 @@ export function ResultRow({
                     const score = scoresByGolferId[golferId] as
                       | GolferScore
                       | undefined;
+
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    if (!golfer) {
+                      return null;
+                    }
 
                     return (
                       <tr
