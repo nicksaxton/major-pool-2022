@@ -75,7 +75,7 @@ export function ResultRow({
         <td colSpan={3}>
           <div className="row justify-content-center p-lg-4 me-lg-4">
             <div className="col-12 col-lg-8">
-              <table className="table border rounded">
+              <table className="table border border-dark rounded">
                 <tbody>
                   {picksSortedByScore.map((golferId) => {
                     const golfer = golfersById[golferId];
