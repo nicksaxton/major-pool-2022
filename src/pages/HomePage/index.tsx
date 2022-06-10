@@ -70,6 +70,11 @@ export default function HomePage() {
             PGA Championship
           </NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="us">
+            U.S. Open
+          </NavLink>
+        </li>
       </ul>
 
       <div className="mb-4">

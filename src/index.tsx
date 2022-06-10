@@ -74,6 +74,16 @@ ReactDOM.render(
                 />
               }
             />
+            <Route
+              path="us"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="us"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19550/leaderboard"
+                />
+              }
+            />
           </Route>
 
           <Route path="login" element={<LoginPage />} />
