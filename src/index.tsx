@@ -47,7 +47,7 @@ ReactDOM.render(
                     masters:
                       'https://www.golfchannel.com/api/v2/events/19540/leaderboard',
                     pga: 'https://www.golfchannel.com/api/v2/events/19546/leaderboard',
-                    us: '',
+                    us: 'https://www.golfchannel.com/api/v2/events/19550/leaderboard',
                     open: '',
                   }}
                 />
