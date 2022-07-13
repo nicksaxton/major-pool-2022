@@ -48,7 +48,7 @@ ReactDOM.render(
                       'https://www.golfchannel.com/api/v2/events/19540/leaderboard',
                     pga: 'https://www.golfchannel.com/api/v2/events/19546/leaderboard',
                     us: 'https://www.golfchannel.com/api/v2/events/19550/leaderboard',
-                    open: '',
+                    open: 'https://www.golfchannel.com/api/v2/events/19556/leaderboard',
                   }}
                 />
               }
@@ -81,6 +81,16 @@ ReactDOM.render(
                   entriesCollection="entries_2022"
                   tournament="us"
                   tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19550/leaderboard"
+                />
+              }
+            />
+            <Route
+              path="open"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="open"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19556/leaderboard"
                 />
               }
             />
