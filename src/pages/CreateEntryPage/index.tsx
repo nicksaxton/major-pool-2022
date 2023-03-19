@@ -103,6 +103,7 @@ export default function CreateEntryPage() {
       <h2 className="mb-4">Create your entry</h2>
 
       <Formik
+        enableReinitialize={true}
         initialValues={{
           name: `${userInfo?.name} ${numberOfEntries + 1}`,
           picks: {
