@@ -54,7 +54,7 @@ export function Navbar({ authenticated, onSignOut }: Props) {
               ) : (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
-                    Login
+                    Sign In
                   </Link>
                 </li>
               )}

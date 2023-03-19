@@ -44,9 +44,8 @@ function LoginPage() {
       )}
 
       <div className="mb-4 text-center">
-        <h1>Login</h1>
         <p className="text-muted">
-          Login to your account to create and manage entries.
+          Sign in to your account to create and manage entries.
         </p>
       </div>
 
@@ -74,7 +73,7 @@ function LoginPage() {
             </div>
 
             <Button className="mb-4" type="submit">
-              Login
+              Sign in
             </Button>
 
             <div className="mb-3 text-end w-100">
