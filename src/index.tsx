@@ -44,13 +44,13 @@ ReactDOM.render(
               path=""
               element={
                 <OverallResultsTable
-                  entriesCollection="entries_2022"
+                  entriesCollection="entries_2023"
                   tournamentUrls={{
                     masters:
-                      'https://www.golfchannel.com/api/v2/events/19540/leaderboard',
-                    pga: 'https://www.golfchannel.com/api/v2/events/19546/leaderboard',
-                    us: 'https://www.golfchannel.com/api/v2/events/19550/leaderboard',
-                    open: 'https://www.golfchannel.com/api/v2/events/19556/leaderboard',
+                      'https://www.golfchannel.com/api/v2/events/19956/leaderboard',
+                    pga: 'https://www.golfchannel.com/api/v2/events/19962/leaderboard',
+                    us: 'https://www.golfchannel.com/api/v2/events/19966/leaderboard',
+                    open: 'https://www.golfchannel.com/api/v2/events/19973/leaderboard',
                   }}
                 />
               }
@@ -60,9 +60,9 @@ ReactDOM.render(
               path="masters"
               element={
                 <ResultsTable
-                  entriesCollection="entries_2022"
+                  entriesCollection="entries_2023"
                   tournament="masters"
-                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19540/leaderboard"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19956/leaderboard"
                 />
               }
             />
@@ -70,9 +70,9 @@ ReactDOM.render(
               path="pga"
               element={
                 <ResultsTable
-                  entriesCollection="entries_2022"
+                  entriesCollection="entries_2023"
                   tournament="pga"
-                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19546/leaderboard"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19962/leaderboard"
                 />
               }
             />
@@ -80,9 +80,9 @@ ReactDOM.render(
               path="us"
               element={
                 <ResultsTable
-                  entriesCollection="entries_2022"
+                  entriesCollection="entries_2023"
                   tournament="us"
-                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19550/leaderboard"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19966/leaderboard"
                 />
               }
             />
@@ -90,9 +90,9 @@ ReactDOM.render(
               path="open"
               element={
                 <ResultsTable
-                  entriesCollection="entries_2022"
+                  entriesCollection="entries_2023"
                   tournament="open"
-                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19556/leaderboard"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19973/leaderboard"
                 />
               }
             />

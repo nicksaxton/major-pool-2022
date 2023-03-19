@@ -53,7 +53,7 @@ export default function EditEntryPage() {
   const [entry, setEntry] = React.useState<Entry | null>(null);
 
   React.useEffect(() => {
-    getDoc(doc(db, 'entries_2022', entryId as string))
+    getDoc(doc(db, 'entries_2023', entryId as string))
       .then((result) => {
         setEntry(result.data() as Entry);
       })
@@ -95,7 +95,7 @@ export default function EditEntryPage() {
         }}
         onSubmit={async (values) => {
           try {
-            await updateDoc(doc(db, 'entries_2022', entryId as string), {
+            await updateDoc(doc(db, 'entries_2023', entryId as string), {
               name: values.name,
               masters: values.picks.masters.map((pick) => Number(pick)),
               open: values.picks.open.map((pick) => Number(pick)),
@@ -128,7 +128,7 @@ export default function EditEntryPage() {
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
                   course="Augusta National Golf Club"
-                  dates="April 7 - 10"
+                  dates="April 6 - 9"
                   golfers={golfers}
                   logo={MastersLogo}
                   name="The Masters"
@@ -139,8 +139,8 @@ export default function EditEntryPage() {
 
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
-                  course="Southern Hills CC"
-                  dates="May 19 - 22"
+                  course="Oak Hill Country Club"
+                  dates="May 18 - 21"
                   golfers={golfers}
                   logo={PGALogo}
                   name="PGA Championship"
@@ -151,8 +151,8 @@ export default function EditEntryPage() {
 
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
-                  course="The Country Club"
-                  dates="June 16 - 19"
+                  course="Los Angeles Country Club"
+                  dates="June 15 - 18"
                   golfers={golfers}
                   logo={USOpenLogo}
                   name="U.S. Open"
@@ -163,8 +163,8 @@ export default function EditEntryPage() {
 
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
-                  course="St. Andrews"
-                  dates="July 14 - 17"
+                  course="Royal Liverpool"
+                  dates="July 20 - 23"
                   golfers={golfers}
                   logo={OpenChampionshipLogo}
                   name="The Open Championship"
