@@ -8,6 +8,7 @@ import { Entry } from 'types';
 import { MyPicks } from 'components/MyPicks';
 import { useGolfers } from 'contexts/golfers';
 import { useLocked } from 'hooks/useLocked';
+import { Button } from 'components/Button';
 
 export default function HomePage() {
   const {
@@ -94,7 +95,11 @@ export default function HomePage() {
         <>
           <h1>Welcome to the Major Pool 2023!</h1>
           {authenticated ? (
-            <div>Test</div>
+            <div>
+              <Link to="create-entry">
+                <Button>Create an entry</Button>
+              </Link>
+            </div>
           ) : (
             <p>
               <Link to="/login">Sign in</Link> or{' '}

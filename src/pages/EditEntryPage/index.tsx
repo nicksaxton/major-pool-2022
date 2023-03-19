@@ -14,7 +14,7 @@ import { useAuth } from 'contexts/auth';
 import MastersLogo from 'images/masters-logo.svg';
 import OpenChampionshipLogo from 'images/the-open-logo.png';
 import PGALogo from 'images/pga-logo.png';
-import USOpenLogo from 'images/us-open-logo.jpg';
+import USOpenLogo from 'images/us-open-logo.png';
 import { useGolfers } from 'contexts/golfers';
 
 const tournamentPicksSchema = yup

@@ -11,9 +11,9 @@ export function MyPicks({ entries, golfersById }: Props) {
   return (
     <>
       {entries.map((entry) => (
-        <div className="px-5 mt-4" key={entry.id}>
+        <div className="mt-4 overflow-hidden" key={entry.id}>
           <h4>{entry.name}</h4>
-          <table className="table">
+          <table className="table table-responsive">
             <thead>
               <tr>
                 <th>The Masters</th>

@@ -21,7 +21,7 @@ import { useAuth } from 'contexts/auth';
 import MastersLogo from 'images/masters-logo.svg';
 import OpenChampionshipLogo from 'images/the-open-logo.png';
 import PGALogo from 'images/pga-logo.png';
-import USOpenLogo from 'images/us-open-logo.jpg';
+import USOpenLogo from 'images/us-open-logo.png';
 import { useGolfers } from 'contexts/golfers';
 
 const tournamentPicksSchema = yup
@@ -72,7 +72,7 @@ export default function CreateEntryPage() {
         .finally(() => setLoadingUser(false));
 
       const entriesQuery = query(
-        collection(db, 'entries_2022'),
+        collection(db, 'entries_2023'),
         where('userId', '==', userId)
       );
 
@@ -114,7 +114,7 @@ export default function CreateEntryPage() {
         }}
         onSubmit={async (values) => {
           try {
-            await addDoc(collection(db, 'entries_2022'), {
+            await addDoc(collection(db, 'entries_2023'), {
               name: values.name,
               masters: values.picks.masters.map((pick) => Number(pick)),
               open: values.picks.open.map((pick) => Number(pick)),
@@ -148,7 +148,7 @@ export default function CreateEntryPage() {
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
                   course="Augusta National Golf Club"
-                  dates="April 7 - 10"
+                  dates="April 6 - 9"
                   golfers={golfers}
                   logo={MastersLogo}
                   name="The Masters"
@@ -159,8 +159,8 @@ export default function CreateEntryPage() {
 
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
-                  course="Southern Hills CC"
-                  dates="May 19 - 22"
+                  course="Oak Hill Country Club"
+                  dates="May 18 - 21"
                   golfers={golfers}
                   logo={PGALogo}
                   name="PGA Championship"
@@ -171,8 +171,8 @@ export default function CreateEntryPage() {
 
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
-                  course="The Country Club"
-                  dates="June 16 - 19"
+                  course="Los Angeles Country Club"
+                  dates="June 15 - 18"
                   golfers={golfers}
                   logo={USOpenLogo}
                   name="U.S. Open"
@@ -183,8 +183,8 @@ export default function CreateEntryPage() {
 
               <div className="col-sm-6 mb-4">
                 <TournamentPicks
-                  course="St. Andrews"
-                  dates="July 14 - 17"
+                  course="Royal Liverpool"
+                  dates="July 20 - 23"
                   golfers={golfers}
                   logo={OpenChampionshipLogo}
                   name="The Open Championship"
