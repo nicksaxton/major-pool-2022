@@ -16,7 +16,7 @@ export function Navbar({ authenticated, onSignOut }: Props) {
       <nav className="navbar navbar-expand-lg navbar-light mb-2 border-bottom">
         <div className="container">
           <Link className="navbar-brand fw-bold" to="/">
-            Major Pool 2022
+            Major Pool 2023
           </Link>
 
           <button
