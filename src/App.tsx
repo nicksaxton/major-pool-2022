@@ -22,7 +22,7 @@ function App() {
       </div>
       <footer className="container">
         <p className="text-center text-muted border-top py-2 mb-0">
-          <small>&copy; 2022 Nick Saxton</small>
+          <small>&copy; 2023 Nick Saxton</small>
         </p>
       </footer>
     </div>
