@@ -7,7 +7,7 @@ export default function PreviousResultsPage() {
   const golfersById = useGolfers();
   const location = useLocation();
 
-  const year = location.pathname.replace('/', '');
+  const year = location.pathname.split('/')[1];
 
   return (
     <>
