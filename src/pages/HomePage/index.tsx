@@ -7,11 +7,13 @@ import { useAuth } from 'contexts/auth';
 import { Entry } from 'types';
 import { MyPicks } from 'components/MyPicks';
 import { useGolfers } from 'contexts/golfers';
+import { useLocked } from 'hooks/useLocked';
 
 export default function HomePage() {
   const {
     state: { authenticated, verifying, user },
   } = useAuth();
+  const { locked } = useLocked();
 
   const [userEntries, setUserEntries] = React.useState<Entry[]>([]);
 
@@ -52,44 +54,61 @@ export default function HomePage() {
 
   return (
     <div className="flex-grow-1 py-2 container">
-      <h1 className="mb-4">Leaderboard</h1>
-
-      <ul className="nav nav-pills">
-        <li className="nav-item">
-          <NavLink className="nav-link" to="">
-            Overall
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="masters">
-            The Masters
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="pga">
-            PGA Championship
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="us">
-            U.S. Open
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="open">
-            The Open Championship
-          </NavLink>
-        </li>
-      </ul>
-
-      <div className="mb-4">
-        <Outlet context={golfersById} />
-      </div>
-
-      {authenticated && userEntries.length > 0 && (
+      {locked ? (
         <>
-          <h1>Picks</h1>
-          <MyPicks entries={userEntries} golfersById={golfersById} />
+          <h1 className="mb-4">Leaderboard</h1>
+
+          <ul className="nav nav-pills">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="">
+                Overall
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="masters">
+                The Masters
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="pga">
+                PGA Championship
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="us">
+                U.S. Open
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="open">
+                The Open Championship
+              </NavLink>
+            </li>
+          </ul>
+
+          <div className="mb-4">
+            <Outlet context={golfersById} />
+          </div>
+
+          {authenticated && userEntries.length > 0 && (
+            <>
+              <h1>Picks</h1>
+              <MyPicks entries={userEntries} golfersById={golfersById} />
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <h1>Welcome to the Major Pool 2023!</h1>
+          {authenticated ? (
+            <div>Test</div>
+          ) : (
+            <p>
+              <Link to="/login">Sign in</Link> or{' '}
+              <Link to="/create-account">create an account</Link> to make your
+              picks.
+            </p>
+          )}
         </>
       )}
 
