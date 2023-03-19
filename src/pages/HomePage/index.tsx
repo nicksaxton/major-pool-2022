@@ -51,7 +51,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex-grow-1 p-4">
+    <div className="flex-grow-1 py-2 container">
       <h1 className="mb-4">Leaderboard</h1>
 
       <ul className="nav nav-pills">

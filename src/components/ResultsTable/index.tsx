@@ -71,7 +71,7 @@ export function ResultsTable({
   }
 
   return (
-    <table className="table mt-4">
+    <table className="table mt-md-4">
       <thead>
         <tr>
           <th className="text-center">Position</th>
