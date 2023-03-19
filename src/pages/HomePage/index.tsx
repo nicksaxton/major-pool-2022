@@ -22,7 +22,7 @@ export default function HomePage() {
   React.useEffect(() => {
     if (user) {
       const q = query(
-        collection(db, 'entries_2022'),
+        collection(db, 'entries_2023'),
         where('userId', '==', user.uid)
       );
 
@@ -89,13 +89,6 @@ export default function HomePage() {
           <div className="mb-4">
             <Outlet context={golfersById} />
           </div>
-
-          {authenticated && userEntries.length > 0 && (
-            <>
-              <h1>Picks</h1>
-              <MyPicks entries={userEntries} golfersById={golfersById} />
-            </>
-          )}
         </>
       ) : (
         <>
@@ -109,6 +102,14 @@ export default function HomePage() {
               picks.
             </p>
           )}
+          <hr />
+        </>
+      )}
+
+      {authenticated && userEntries.length > 0 && (
+        <>
+          <h1>Picks</h1>
+          <MyPicks entries={userEntries} golfersById={golfersById} />
         </>
       )}
 
