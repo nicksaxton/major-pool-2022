@@ -97,6 +97,9 @@ export default function HomePage() {
         <p>Previous year results:</p>
         <ul>
           <li>
+            <Link to="/2022">2022</Link>
+          </li>
+          <li>
             <Link to="/2021">2021</Link>
           </li>
         </ul>

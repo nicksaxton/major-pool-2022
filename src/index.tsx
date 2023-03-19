@@ -22,6 +22,7 @@ import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import PreviousResultsPage from 'pages/PreviousResultsPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
+import { ScrollRestoration } from 'components/ScrollRestoration';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,6 +33,7 @@ ReactDOM.render(
           element={
             <GolfersProvider>
               <AuthProvider>
+                <ScrollRestoration />
                 <App />
               </AuthProvider>
             </GolfersProvider>
@@ -159,6 +161,65 @@ ReactDOM.render(
                   entriesCollection="entries"
                   tournament="open"
                   tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19198/leaderboard"
+                />
+              }
+            />
+          </Route>
+
+          <Route path="2022" element={<PreviousResultsPage />}>
+            <Route
+              path=""
+              element={
+                <OverallResultsTable
+                  entriesCollection="entries_2022"
+                  tournamentUrls={{
+                    masters:
+                      'https://www.golfchannel.com/api/v2/events/19540/leaderboard',
+                    pga: 'https://www.golfchannel.com/api/v2/events/19546/leaderboard',
+                    us: 'https://www.golfchannel.com/api/v2/events/19550/leaderboard',
+                    open: 'https://www.golfchannel.com/api/v2/events/19556/leaderboard',
+                  }}
+                />
+              }
+            />
+
+            <Route
+              path="masters"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="masters"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19540/leaderboard"
+                />
+              }
+            />
+            <Route
+              path="pga"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="pga"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19546/leaderboard"
+                />
+              }
+            />
+            <Route
+              path="us"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="us"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19550/leaderboard"
+                />
+              }
+            />
+            <Route
+              path="open"
+              element={
+                <ResultsTable
+                  entriesCollection="entries_2022"
+                  tournament="open"
+                  tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19556/leaderboard"
                 />
               }
             />

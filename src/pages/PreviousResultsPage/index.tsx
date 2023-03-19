@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 import { useGolfers } from 'contexts/golfers';
 
 export default function PreviousResultsPage() {
   const golfersById = useGolfers();
+  const location = useLocation();
+
+  const year = location.pathname.replace('/', '');
 
   return (
     <>
-      <h3 className="my-4">Major Pool 2021 Results</h3>
+      <h3 className="my-4">Major Pool {year} Results</h3>
 
       <ul className="nav nav-pills">
         <li className="nav-item">
