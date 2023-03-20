@@ -18,7 +18,7 @@ function authReducer(state: State, action: Action) {
   switch (action.type) {
     case 'login_start':
       return {
-        authenticated: true,
+        authenticated: false,
         verifying: true,
       };
 
@@ -56,7 +56,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   const value = { dispatch, state };
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     dispatch({ type: 'login_start' });
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {

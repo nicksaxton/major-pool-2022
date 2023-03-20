@@ -29,6 +29,10 @@ function LoginPage() {
     }
   }, [from, navigate, state.authenticated]);
 
+  const onSuccess = () => {
+    navigate(from, { replace: true });
+  };
+
   return (
     <UnauthenticatedLayout>
       {error && (
@@ -52,13 +56,7 @@ function LoginPage() {
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={({ email, password }) =>
-          helpers.handleSignIn(
-            email,
-            password,
-            dispatch,
-            () => navigate(from, { replace: true }),
-            setError
-          )
+          helpers.handleSignIn(email, password, dispatch, onSuccess, setError)
         }
       >
         {({ handleSubmit }) => (
