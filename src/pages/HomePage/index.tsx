@@ -54,7 +54,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex-grow-1 py-2 container">
+    <div className="d-flex flex-column flex-grow-1 py-2 container">
       {locked ? (
         <>
           <h1 className="mb-4">Leaderboard</h1>
@@ -92,10 +92,10 @@ export default function HomePage() {
           </div>
         </>
       ) : (
-        <>
+        <div className="flex-grow-1 border-bottom mb-4 justify-content-center text-center d-flex flex-column align-items-center py-4">
           <h1>Welcome to the Major Pool 2023!</h1>
           {authenticated ? (
-            <div>
+            <div className="my-4">
               <Link to="create-entry">
                 <Button>Create an entry</Button>
               </Link>
@@ -107,8 +107,7 @@ export default function HomePage() {
               picks.
             </p>
           )}
-          <hr />
-        </>
+        </div>
       )}
 
       {authenticated && userEntries.length > 0 && (
