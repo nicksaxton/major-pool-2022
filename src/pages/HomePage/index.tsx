@@ -112,7 +112,7 @@ export default function HomePage() {
 
       {authenticated && userEntries.length > 0 && (
         <>
-          <h1>Picks</h1>
+          <h1>My Picks</h1>
           <MyPicks
             entries={userEntries}
             golfersById={golfersById}
