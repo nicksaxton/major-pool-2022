@@ -94,7 +94,10 @@ export function TournamentPicks({
           {selectedGolfers.length > 0 && (
             <ul className="list-group w-100 mb-2">
               {selectedGolfers.map((golfer) => (
-                <li className="list-group-item" key={golfer.name}>
+                <li
+                  className="list-group-item"
+                  key={`${golfer.name}_${golfer.id}`}
+                >
                   <div className="form-check d-flex align-items-center">
                     <Field name={`picks[${tournament}]`}>
                       {({ field }: FieldProps) => (
@@ -148,7 +151,7 @@ export function TournamentPicks({
               {availableGolfers.map((golfer) => (
                 <li
                   className={classnames('list-group-item', styles.Golfer)}
-                  key={golfer.name}
+                  key={`${golfer.name}_${golfer.id}`}
                 >
                   <div className="form-check d-flex align-items-center">
                     <Field name={`picks[${tournament}]`}>
