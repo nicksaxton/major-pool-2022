@@ -52,11 +52,19 @@ export default function CreateEntryPage() {
   }, [golfersById]);
 
   const {
-    state: { authenticated, user },
+    state: { authenticated, user, verifying },
   } = useAuth();
+
   const [userInfo, setUserInfo] = React.useState<{ name: string } | null>(null);
   const [loadingUser, setLoadingUser] = React.useState(true);
   const [numberOfEntries, setNumberOfEntries] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!verifying && !authenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [authenticated, navigate, verifying]);
+
   React.useEffect(() => {
     const userId = user?.uid;
 
@@ -83,10 +91,6 @@ export default function CreateEntryPage() {
         .catch(() => console.error('Problem finding existing entry count'));
     }
   }, [user?.uid]);
-
-  if (!authenticated) {
-    navigate('/', { replace: true });
-  }
 
   if (loadingUser) {
     return (

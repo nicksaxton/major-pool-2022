@@ -45,7 +45,7 @@ export default function EditEntryPage() {
   }, [golfersById]);
 
   const {
-    state: { authenticated },
+    state: { authenticated, verifying },
   } = useAuth();
   // Load entry
   const { entryId } = useParams();
@@ -61,9 +61,11 @@ export default function EditEntryPage() {
       .finally(() => setLoadingEntry(false));
   }, [entryId]);
 
-  if (!authenticated) {
-    navigate('/', { replace: true });
-  }
+  React.useEffect(() => {
+    if (!authenticated && !verifying) {
+      navigate('/', { replace: true });
+    }
+  }, [authenticated, navigate, verifying]);
 
   if (loadingEntry) {
     return (
