@@ -40,7 +40,7 @@ ReactDOM.render(
           }
         >
           <Route path="/" element={<HomePage />}>
-            <Route
+            {/* <Route
               path=""
               element={
                 <OverallResultsTable
@@ -54,10 +54,10 @@ ReactDOM.render(
                   }}
                 />
               }
-            />
+            /> */}
 
             <Route
-              path="masters"
+              path=""
               element={
                 <ResultsTable
                   entriesCollection="entries_2023"
@@ -66,7 +66,7 @@ ReactDOM.render(
                 />
               }
             />
-            <Route
+            {/* <Route
               path="pga"
               element={
                 <ResultsTable
@@ -95,7 +95,7 @@ ReactDOM.render(
                   tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19973/leaderboard"
                 />
               }
-            />
+            /> */}
           </Route>
 
           <Route path="login" element={<LoginPage />} />
