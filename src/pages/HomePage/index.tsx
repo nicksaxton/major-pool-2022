@@ -60,21 +60,22 @@ export default function HomePage() {
           <h1 className="mb-4">Leaderboard</h1>
 
           <ul className="nav nav-pills">
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <NavLink className="nav-link" to="">
                 Overall
               </NavLink>
-            </li> */}
+            </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="masters">
                 The Masters
               </NavLink>
             </li>
-            {/* <li className="nav-item">
+             <li className="nav-item">
               <NavLink className="nav-link" to="pga">
                 PGA Championship
               </NavLink>
             </li>
+            {/*
             <li className="nav-item">
               <NavLink className="nav-link" to="us">
                 U.S. Open

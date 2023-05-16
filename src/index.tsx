@@ -40,7 +40,7 @@ ReactDOM.render(
           }
         >
           <Route path="/" element={<HomePage />}>
-            {/* <Route
+            <Route
               path=""
               element={
                 <OverallResultsTable
@@ -54,10 +54,10 @@ ReactDOM.render(
                   }}
                 />
               }
-            /> */}
+            />
 
             <Route
-              path=""
+              path="masters"
               element={
                 <ResultsTable
                   entriesCollection="entries_2023"
@@ -66,7 +66,7 @@ ReactDOM.render(
                 />
               }
             />
-            {/* <Route
+             <Route
               path="pga"
               element={
                 <ResultsTable
@@ -76,6 +76,7 @@ ReactDOM.render(
                 />
               }
             />
+            {/*
             <Route
               path="us"
               element={
