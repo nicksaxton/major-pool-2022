@@ -76,7 +76,6 @@ ReactDOM.render(
                 />
               }
             />
-            {/*
             <Route
               path="us"
               element={
@@ -87,6 +86,7 @@ ReactDOM.render(
                 />
               }
             />
+            {/*
             <Route
               path="open"
               element={

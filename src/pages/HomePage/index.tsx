@@ -75,12 +75,12 @@ export default function HomePage() {
                 PGA Championship
               </NavLink>
             </li>
-            {/*
             <li className="nav-item">
               <NavLink className="nav-link" to="us">
                 U.S. Open
               </NavLink>
             </li>
+              {/*
             <li className="nav-item">
               <NavLink className="nav-link" to="open">
                 The Open Championship
