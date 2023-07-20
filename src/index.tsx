@@ -66,7 +66,7 @@ ReactDOM.render(
                 />
               }
             />
-             <Route
+            <Route
               path="pga"
               element={
                 <ResultsTable
@@ -86,7 +86,6 @@ ReactDOM.render(
                 />
               }
             />
-            {/*
             <Route
               path="open"
               element={
@@ -96,7 +95,7 @@ ReactDOM.render(
                   tournamentScoresUrl="https://www.golfchannel.com/api/v2/events/19973/leaderboard"
                 />
               }
-            /> */}
+            />
           </Route>
 
           <Route path="login" element={<LoginPage />} />

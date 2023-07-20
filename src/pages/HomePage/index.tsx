@@ -70,7 +70,7 @@ export default function HomePage() {
                 The Masters
               </NavLink>
             </li>
-             <li className="nav-item">
+            <li className="nav-item">
               <NavLink className="nav-link" to="pga">
                 PGA Championship
               </NavLink>
@@ -80,12 +80,11 @@ export default function HomePage() {
                 U.S. Open
               </NavLink>
             </li>
-              {/*
             <li className="nav-item">
               <NavLink className="nav-link" to="open">
                 The Open Championship
               </NavLink>
-            </li> */}
+            </li>
           </ul>
 
           <div className="mb-4">
